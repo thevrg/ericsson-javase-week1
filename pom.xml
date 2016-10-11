@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>hu.dpc.edu</groupId>
-    <artifactId>jdbc-test</artifactId>
+    <artifactId>ericsson-javase-week1</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
