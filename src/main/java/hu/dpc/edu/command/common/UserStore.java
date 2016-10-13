@@ -3,6 +3,9 @@ package hu.dpc.edu.command.common;
 import hu.dpc.edu.User;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 /**
  * Created by vrg on 11/10/16.
@@ -16,5 +19,6 @@ public interface UserStore {
     public void setState(Object state);
 
 
-    public Collection<User> getUsers();
+    public Stream<User> getUserStream();
+    public List<User> findUsers(Predicate<User>predicate);
 }

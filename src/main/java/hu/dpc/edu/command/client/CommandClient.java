@@ -7,10 +7,20 @@ import hu.dpc.edu.command.executor.CommandExecutor;
 import hu.dpc.edu.command.executor.DefaultExecutionContext;
 import hu.dpc.edu.command.executor.InMemoryUserStore;
 
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 /**
  * Created by vrg on 11/10/16.
  */
 public class CommandClient {
+
+    private static void print(Stream<User> userStream) {
+        System.out.println(
+                userStream.map(user -> user.getLastName() + " " + user.getFirstName())
+                        .collect(Collectors.joining(", ", "[", "]")));
+    }
+
     public static void main(String[] args) {
         final InMemoryUserStore userStore = new InMemoryUserStore();
         CommandExecutor executor = new CommandExecutor(new DefaultExecutionContext(userStore));
@@ -23,11 +33,11 @@ public class CommandClient {
         final FindUserByNameCommand findUser1 = new FindUserByNameCommand("user1");
 
 
-        System.out.println(userStore.getUsers());
+        print(userStore.getUserStream());
         executor.execute(createUser1);
-        System.out.println(userStore.getUsers());
+        print(userStore.getUserStream());
         executor.execute(createUser2);
-        System.out.println(userStore.getUsers());
+        print(userStore.getUserStream());
 //        executor.execute(findUser1);
 //        System.out.println(userStore.getUsers());
 
@@ -35,11 +45,11 @@ public class CommandClient {
 //        final User firstUser = findUser1.getUser();
 //        System.out.println(userStore.getUsers());
         executor.undo();
-        System.out.println(userStore.getUsers());
+        print(userStore.getUserStream());
         executor.undo();
-        System.out.println(userStore.getUsers());
+        print(userStore.getUserStream());
         executor.undo();
-        System.out.println(userStore.getUsers());
+        print(userStore.getUserStream());
 
     }
 }

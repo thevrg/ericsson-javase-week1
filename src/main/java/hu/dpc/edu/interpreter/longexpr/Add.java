@@ -5,7 +5,11 @@ import hu.dpc.edu.interpreter.LongExpression;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Supplier;
 import java.util.logging.Level;
+import java.util.stream.Collectors;
+import java.util.stream.LongStream;
+import java.util.stream.Stream;
 
 /**
  *
@@ -22,13 +26,22 @@ public class Add extends LongExpression {
     
     @Override
     public Long evaluate(EvaluationContext context) {
-        long sum = 0;
-        for (LongExpression operandExpression : operands) {
-            Long operandValue = operandExpression.evaluate(context);
-            sum += operandValue;
-        }
-        context.log(Level.INFO, "Calculating sum of number...");
-        return sum;
+
+        Supplier<LongStream>valueStreamSupplier = ()
+                -> operands.stream()
+                .mapToLong(longEx -> longEx.evaluate(context));
+
+
+        final long result = valueStreamSupplier.get()
+                .sum();
+
+
+        context.log(Level.INFO, () -> {
+            return valueStreamSupplier.get()
+                    .mapToObj(Long::toString)
+                    .collect(Collectors.joining(" + ", "Evaluating ", ""));
+        });
+        return result;
     }
     
 }

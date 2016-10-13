@@ -5,10 +5,7 @@
  */
 package hu.dpc.edu.interpreter;
 
-import hu.dpc.edu.interpreter.longexpr.Add;
-import hu.dpc.edu.interpreter.longexpr.Constant;
-import hu.dpc.edu.interpreter.longexpr.Multiply;
-import hu.dpc.edu.interpreter.longexpr.Variable;
+import hu.dpc.edu.interpreter.longexpr.*;
 
 /**
  *

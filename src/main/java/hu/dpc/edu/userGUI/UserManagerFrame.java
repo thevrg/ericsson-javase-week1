@@ -77,19 +77,18 @@ public class UserManagerFrame extends JFrame {
         lastNameField.setToolTipText("");
 
         saveButton.setText("Save");
-        saveButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                tableModel.getUsers()
-                        .add(User.builder()
-                        .username(userNameField.getText())
-                        .firstName(firstNameField.getText())
-                        .lastName(lastNameField.getText())
-                        .build());
-                tableModel.fireTableChangedEvent();
-                //tableModel.changed();
-            }
+        saveButton.addActionListener((ActionEvent event) -> {
+            tableModel.getUsers()
+                    .add(User.builder()
+                            .username(userNameField.getText())
+                            .firstName(firstNameField.getText())
+                            .lastName(lastNameField.getText())
+                            .build());
+            tableModel.fireTableChangedEvent();
         });
+
+
+        saveButton.addActionListener(e -> System.out.println("hello, e: " + e));
 
         deleteButton.setText("Delete");
 
