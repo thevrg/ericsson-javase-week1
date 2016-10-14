@@ -1,9 +1,13 @@
 package hu.dpc.edu.concurrency;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 /**
  * Created by vrg on 13/10/16.
  */
 public class MyPoint {
+
+    private final static AtomicInteger counter = new AtomicInteger();
 
     private int x;
     private int y;
@@ -11,6 +15,7 @@ public class MyPoint {
     public MyPoint(int x, int y) {
         this.x = x;
         this.y = y;
+        counter.incrementAndGet();
     }
 
     public int getX() {
@@ -29,4 +34,7 @@ public class MyPoint {
         this.y = y;
     }
 
+    public static int getCounter() {
+        return counter.get();
+    }
 }
